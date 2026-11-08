@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block site_meta %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {%- set page_description = (page.meta.description if page and page.meta and page.meta.description else config.site_description) %}
+    {%- if page_description %}<meta name="description" content="{{ page_description }}" />{%- endif %}
+    {%- if config.site_author %}<meta name="author" content="{{ config.site_author }}" />{%- endif %}
+    {%- if page and page.canonical_url %}<link rel="canonical" href="{{ page.canonical_url }}" />{%- endif %}
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="{{ 'img/favicon.ico'|url }}" />
+    <link rel="icon" type="image/svg+xml" href="{{ 'img/favicon.svg'|url }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ 'img/favicon-32x32.png'|url }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ 'img/favicon-16x16.png'|url }}" />
+    <link rel="icon" type="image/png" sizes="120x120" href="{{ 'img/favicon-120x120.png'|url }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ 'img/apple-touch-icon.png'|url }}" />
+
+    <!-- Open Graph / social preview -->
+    {%- set page_title = (page.title if page and page.title and not page.is_homepage else config.site_name) %}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{ config.site_name }}" />
+    <meta property="og:title" content="{{ page_title }}" />
+    {%- if page_description %}<meta property="og:description" content="{{ page_description }}" />{%- endif %}
+    {%- if page and page.canonical_url %}<meta property="og:url" content="{{ page.canonical_url }}" />{%- endif %}
+    {%- if config.site_url %}<meta property="og:image" content="{{ config.site_url }}img/favicon-512.png" />{%- endif %}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ page_title }}" />
+    {%- if page_description %}<meta name="twitter:description" content="{{ page_description }}" />{%- endif %}
+{% endblock %}
+
+{% block extrahead %}
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110666842', 'ym');
+
+    ym(110666842, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/110666842" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+{% endblock %}
